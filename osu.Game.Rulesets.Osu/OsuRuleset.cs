@@ -223,6 +223,12 @@ namespace osu.Game.Rulesets.Osu
                         new ModScoreV2(),
                     };
 
+                case ModType.Training:
+                    return new Mod[]
+                    {
+                        new OsuModMetronome()
+                    };
+
                 default:
                     return Array.Empty<Mod>();
             }
