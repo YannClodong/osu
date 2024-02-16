@@ -169,7 +169,7 @@ namespace osu.Game.Graphics
                     return Yellow;
 
                 case ModType.Training:
-                    return Gray2;
+                    return Gray9;
 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(modType), modType, "Unknown mod type");
