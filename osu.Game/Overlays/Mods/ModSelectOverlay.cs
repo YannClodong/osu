@@ -123,6 +123,7 @@ namespace osu.Game.Overlays.Mods
         private FillFlowContainer<ShearedButton> footerButtonFlow = null!;
         private FillFlowContainer footerContentFlow = null!;
         private DeselectAllModsButton deselectAllModsButton = null!;
+        private MusicController musicController = null!;
 
         private Container aboveColumnsContent = null!;
         private RankingInformationDisplay? rankingInformationDisplay;
@@ -157,8 +158,9 @@ namespace osu.Game.Overlays.Mods
         }
 
         [BackgroundDependencyLoader]
-        private void load(OsuGameBase game, OsuColour colours, AudioManager audio, OsuConfigManager configManager)
+        private void load(OsuGameBase game, OsuColour colours, AudioManager audio, OsuConfigManager configManager, MusicController musicController)
         {
+            this.musicController = musicController;
             Header.Title = ModSelectOverlayStrings.ModSelectTitle;
             Header.Description = ModSelectOverlayStrings.ModSelectDescription;
 
@@ -313,11 +315,16 @@ namespace osu.Game.Overlays.Mods
             if (AllowCustomisation)
                 ((IBindable<IReadOnlyList<Mod>>)modSettingsArea.SelectedMods).BindTo(SelectedMods);
 
-            SelectedMods.BindValueChanged(_ =>
+            SelectedMods.BindValueChanged(ev =>
             {
                 updateRankingInformation();
                 updateFromExternalSelection();
                 updateCustomisation();
+
+                foreach (var mod in ev.NewValue.OfType<IApplicableToMenuMusic>())
+                {
+                    mod.ApplyToMenuMusic(new MenuMusicController(musicController));
+                }
 
                 modSettingChangeTracker?.Dispose();
 

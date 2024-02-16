@@ -226,7 +226,8 @@ namespace osu.Game.Rulesets.Osu
                 case ModType.Training:
                     return new Mod[]
                     {
-                        new OsuModMetronome()
+                        new OsuModMetronome(),
+                        new OsuModStartAt()
                     };
 
                 default:

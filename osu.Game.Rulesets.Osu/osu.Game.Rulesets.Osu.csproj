@@ -16,4 +16,10 @@
   <ItemGroup Label="Project References">
     <ProjectReference Include="..\osu.Game\osu.Game.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="osu.Framework">
+      <HintPath>..\osu.Desktop\bin\Debug\net8.0\osu.Framework.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 </Project>
